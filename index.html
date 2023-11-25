@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Masai Doctor Records</title>
+    <style>
+      body {
+          font-family:  sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+
+      form {
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+          width: 400px;
+          position:relative;
+          right:320px;
+          
+      }
+
+      label {
+          display: block;
+          margin-bottom: 8px;
+      }
+
+      input, select {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 16px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+      }
+      select {
+          cursor: pointer;
+      }
+
+      input[type="submit"] {
+          background-color: blue;
+          color: #fff;
+          padding: 10px;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 16px;
+      }
+
+      table {
+          border-collapse: collapse;
+          width:900px;
+          margin-top: 20px;
+          position: relative;
+          right: 50px;
+          bottom:250px;
+      }
+
+      table, th , td {
+          border: 1px solid #ddd;
+      }
+
+      th , td{
+          padding: 10px;
+          text-align: left;
+      }
+
+      th {
+          background-color: blue;
+      }
+
+       td:last-child {
+          text-align: center;
+      }
+
+      
+      .delete-btn {
+            cursor: pointer;
+            color: red;
+        }
+
+  </style>
+  </head>
+  <body>
+    <h1 style ="color: blue ; font-family:sans-serif; position:relative; bottom: 360px; text-decoration: underline; font-family: sans-serif; ">HOSPITAL - DOCTOR RECORDS</h1>
+    <!-- Use this form for data input  -->
+    
+    <form action="#" method="post">
+      <label for="name">Doctor Name</label>
+      <input placeholder="Name" type="text" id="name" />
+      <label for="doctor_id">Doctor ID</label>
+      <input placeholder="Doctor ID" type="text" id="doctor_id" />
+      <label for="specialization">Specialization</label>
+      <select id="specialization">
+        <option value="">Select Specialization</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Dentist">Dentist</option>
+        <option value="Gynecologist">Gynecologist</option>
+      </select>
+      <label for="experience">Experience</label>
+      <input placeholder="Experience" type="number" id="experience" />
+      <label for="email">Email Address</label>
+      <input placeholder="Email" type="email" id="email" />
+      <label for="mobile">Mobile Number</label>
+      <input placeholder="Mobile No." type="number" id="mobile" />
+      <input type="submit" value="Submit" onclick="submitForm()"/>
+    </form>
+
+    <!-- Use this Select tag for filter part  
+    <select id="filter">
+      <option value="">Select Specialization</option>
+      <option value="Dermatologist">Dermatologist</option>
+      <option value="Dentist">Dentist</option>
+      <option value="Gynecologist">Gynecologist</option>
+    </select>
+    -->
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Doctor ID</th>
+          <th>Specialization</th>
+          <th>Experience in Years</th>
+          <th>Email</th>
+          <th>Mobile No</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Append Rows here using JS & DOM  -->
+      </tbody>
+    </table>
+  
+  <script>
+    function submitForm() {
+
+      event.preventDefault();
+            // Get form values
+            var name = document.getElementById('name').value;
+            var doctorId = document.getElementById('doctor_id').value;
+            var specialization = document.getElementById('specialization').value;
+            var experience = document.getElementById('experience').value;
+            var email = document.getElementById('email').value;
+            var mobile = document.getElementById('mobile').value;
+            var role;
+            if(experience > 5)
+            role = "Senior";
+            else if(experience>=2 && experience<=5)
+            role = "Junior";
+            else if(experience<=1)
+            role = "Trainee";
+            
+            // Create a new row in the table
+            // var table = document.getElementsByTagName('tbody');
+            var tableBody = document.getElementById('myTable');
+            var newRow = tableBody.insertRow();
+
+            // Insert cells into the new row
+            var cells = [];
+            for (var i = 0; i < 7; i++) {
+                cells[i] = newRow.insertCell(i);
+            }
+
+            // Populate cells with data
+            cells[0].innerHTML = name;
+            cells[1].innerHTML = doctorId;
+            cells[2].innerHTML = specialization;
+            cells[3].innerHTML = experience;
+            cells[4].innerHTML = email;
+            cells[5].innerHTML = mobile;
+            cells[6].innerHTML = role;
+
+            // Add a delete button
+            // var deleteCell;
+            // var deleteButton = document.createElement('span');
+            // deleteButton.className = 'delete-btn';
+            // deleteButton.innerHTML = 'Delete';
+            // deleteButton.onclick = function() {
+            //     tableBody.deleteRow(newRow.rowIndex);
+            // };
+            // deleteCell.appendChild(deleteButton);
+
+            var deleteButton = document.createElement('span');
+            deleteButton.className = 'delete-btn';
+            deleteButton.innerHTML = 'Delete';
+            deleteButton.onclick = function() {
+            tableBody.deleteRow(newRow.rowIndex);
+};
+
+          // Create a cell for the delete button and append it
+            var deleteCell = newRow.insertCell(7);
+            deleteCell.appendChild(deleteButton);
+        }
+  </script>
+  </body>
+</html>
